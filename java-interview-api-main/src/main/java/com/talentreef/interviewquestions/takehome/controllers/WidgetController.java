@@ -5,6 +5,8 @@ import com.talentreef.interviewquestions.takehome.services.WidgetService;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.Assert;
@@ -21,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000") // Temporary fix - allow frontend to call backend -> We can add Spring Boot config Class
 @Slf4j
 @RestController
 @Validated
@@ -41,17 +43,19 @@ public class WidgetController {
 	}
 
 	@PostMapping
-	public ResponseEntity<?> addWidget(@Valid @RequestBody Widget widget) {
-		return ResponseEntity.ok(widgetService.addWidget(widget));
+	public ResponseEntity<Void> addWidget(@Valid @RequestBody Widget widget) {
+		widgetService.addWidget(widget);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 
 	@PutMapping
-	public ResponseEntity<?> getAllWidgets(@Valid @RequestBody Widget widget) {
-		return ResponseEntity.ok(widgetService.updateWidget(widget));
+	public ResponseEntity<Void> updateWidget(@Valid @RequestBody Widget widget) {
+		widgetService.updateWidget(widget);
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping
-	public ResponseEntity<?> deleteWidget(@RequestParam String widget) {
-		return ResponseEntity.ok(widgetService.deleteWidget(widget));
+	public List<Widget> deleteWidget(@RequestParam String widget) {
+		return widgetService.deleteWidget(widget);
 	}
 }

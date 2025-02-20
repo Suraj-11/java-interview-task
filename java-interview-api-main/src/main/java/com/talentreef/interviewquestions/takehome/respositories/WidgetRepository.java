@@ -31,9 +31,8 @@ public class WidgetRepository {
     return result;
   }
 
-  public Widget save(Widget widget) {
+  public void save(Widget widget) {
     deleteById(widget.getName());
     table.add(widget);
-    return widget;
   }
 }

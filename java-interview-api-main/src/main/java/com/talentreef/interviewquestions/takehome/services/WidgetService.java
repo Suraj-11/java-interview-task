@@ -23,12 +23,12 @@ public class WidgetService {
 		return widgetRepository.findAll();
 	}
 
-	public Widget addWidget(Widget widget) {
-		return widgetRepository.save(widget);
+	public void addWidget(Widget widget) {
+		widgetRepository.save(widget);
 	}
 
-	public Widget updateWidget(Widget widget) {
-		return widgetRepository.save(widget);
+	public void updateWidget(Widget widget) {
+		widgetRepository.save(widget);
 	}
 
 	public List<Widget> deleteWidget(String widget) {
